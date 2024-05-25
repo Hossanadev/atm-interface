@@ -18,7 +18,7 @@ public class LandingPage {
                 LoginService.start();
                 break;
             case "2":
-                LandingPage.show();
+                CreateAccount.newAccount();
                 break;
             case "3":
                 System.exit(0);

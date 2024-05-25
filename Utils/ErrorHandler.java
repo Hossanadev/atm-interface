@@ -1,8 +1,5 @@
 package Utils;
 
-import view.auth.LandingPage;
-import view.auth.LoginService;
-
 public class ErrorHandler {
     private static String errorMessage = "";
 
