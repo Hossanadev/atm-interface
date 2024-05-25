@@ -3,7 +3,7 @@ package view.auth;
 import java.util.Scanner;
 
 public class LandingPage {
-    private static final String greeting = "-- WELCOME TO HOSSANA ATM INTERFACE --";
+    private static final String greeting = "-- ATM INTERFACE by Hossana --";
     private static final Scanner sc = new Scanner(System.in);
 
     public static void show() {

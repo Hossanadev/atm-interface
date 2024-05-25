@@ -1,15 +1,16 @@
 package view;
 
 import Utils.GreetingHandler;
+import model.UserModel;
 import view.auth.LandingPage;
 
 import java.util.Scanner;
 
 public class Dashboard {
-    static Scanner sc = new Scanner(System.in);
+    static Scanner sc = new Scanner(System.in);;
 
-    public static void show(String userName) {
-        System.out.println("Hi " + userName + ", " + GreetingHandler.getGreeting());
+    public static void show(UserModel user) {
+        System.out.println("Hi " + user.getName() + ", " + GreetingHandler.getGreeting());
         System.out.println("App Menu:");
         System.out.println("1: -- Transaction History");
         System.out.println("2: -- Withdraw");
@@ -22,15 +23,15 @@ public class Dashboard {
 
         switch (selectedMenu) {
             case "1":
-                System.out.println("1. View Transaction History");
-                Dashboard.show(userName);
+                System.out.println("-- Transaction History");
+                Dashboard.show(user);
                 break;
              case "5":
                  LandingPage.show();
                  break;
             default: {
                 System.out.println("ERROR! -- Invalid option!");
-                Dashboard.show(userName);
+                Dashboard.show(user);
             }
         }
     }

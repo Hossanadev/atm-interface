@@ -39,7 +39,7 @@ public class LoginService {
 
         if (user != null) {
             System.out.println("-- RESPONSE: Login Successful! --");
-            Dashboard.show(user.getName());
+            Dashboard.show(user);
         } else {
             ErrorHandler.login(2);
             LandingPage.show();

@@ -21,6 +21,16 @@ public class UserController {
         return users;
     }
 
+    public UserModel getUserById(int id) {
+        UserModel user_ = null;
+        for (UserModel user : users) {
+            if (user.getId() == id) {
+                user_ = new UserModel(user.getName(), user.getId(), user.getPin());
+            }
+        }
+        return user_;
+    }
+
     public UserModel authenticateUser(int id, int pin) {
         UserModel user_ = null;
         for (UserModel user : users) {
