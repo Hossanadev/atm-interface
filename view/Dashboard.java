@@ -7,7 +7,7 @@ import view.auth.LandingPage;
 import java.util.Scanner;
 
 public class Dashboard {
-    static Scanner sc = new Scanner(System.in);;
+    static Scanner sc = new Scanner(System.in);
 
     public static void show(UserModel user) {
         System.out.println("Hi " + user.getName() + ", " + GreetingHandler.getGreeting());
