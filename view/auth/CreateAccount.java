@@ -1,5 +1,6 @@
 package view.auth;
 
+import Utils.ErrorHandler;
 import controller.UserController;
 import model.UserModel;
 
@@ -19,24 +20,48 @@ public class CreateAccount {
         String name = sc.nextLine();
 
         System.out.println("Enter account id: ");
-        int id = Integer.parseInt(sc.nextLine());
+        String id = sc.nextLine();
 
         System.out.println("Enter account pin: ");
-        int pin = Integer.parseInt(sc.nextLine());
+        String pin = sc.nextLine();
 
+        if (name.isEmpty()) {
+            ErrorHandler.createAccount(1);
+            CreateAccount.newAccount();
+        }
+
+        if (id.isEmpty()) {
+            ErrorHandler.createAccount(2);
+            CreateAccount.newAccount();
+        }
+
+        if (pin.isEmpty()) {
+            ErrorHandler.createAccount(3);
+            CreateAccount.newAccount();
+        }
+
+        int parsedId = 0, parsedPin = 0;
+
+        try {
+            parsedId = Integer.parseInt(id);
+            parsedPin = Integer.parseInt(pin);
+        } catch (NumberFormatException e) {
+            ErrorHandler.createAccount(4);
+            CreateAccount.newAccount();
+        }
 
         for (UserModel user : users) {
-            if (name.equals(user.getName())) {
-                System.out.println("-- Error: User with this name already exists, enter unique name --");
+            if (name.equalsIgnoreCase(user.getName())) {
+                ErrorHandler.createAccount(5);
                 LandingPage.show();
             }
-            if (id == user.getId()) {
-                System.out.println("-- Error: User with this id already exists, enter unique id --");
+            if (parsedId == user.getId()) {
+                ErrorHandler.createAccount(6);
                 LandingPage.show();
             }
         }
 
-        UserModel newUser = new UserModel(name, id, pin);
+        UserModel newUser = new UserModel(name, parsedId, parsedPin);
         userController.addUser(newUser);
         System.out.println("-- " + name + ", your account is created successfully... 100% --");
         try {
