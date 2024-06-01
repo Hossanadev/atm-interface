@@ -2,6 +2,9 @@ package controller;
 
 import model.UserModel;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class UserController {
@@ -15,6 +18,7 @@ public class UserController {
 
     public void addUser(UserModel user) {
         users.add(user);
+        persistUser(user);
     }
 
     public ArrayList<UserModel> getUsers() {
@@ -29,6 +33,18 @@ public class UserController {
             }
         }
         return user_;
+    }
+
+    private void persistUser(UserModel user) {
+        try {
+            BufferedWriter bw = new BufferedWriter(new FileWriter("database/users/users.txt", true));
+            bw.write(user.toString());
+            bw.newLine();
+            bw.close();
+
+        } catch (IOException e) {
+            System.err.println("An error occurred while trying to write to the file: " + e.getMessage());
+        }
     }
 
     public UserModel authenticateUser(int id, int pin) {
