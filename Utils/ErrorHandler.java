@@ -43,4 +43,16 @@ public class ErrorHandler {
         }
         System.err.println("-- ERROR: " + errorMessage + " --");
     }
+
+    public static void parseDataFromDatabase(int ErrorCode, Exception error) {
+        switch (ErrorCode) {
+            case 1:
+                errorMessage = "Error parsing user: " + error;
+                break;
+            case 2:
+                errorMessage = "Id cannot be empty!";
+            default:
+        }
+        System.err.println("-- ERROR: " + errorMessage + " --");
+    }
 }

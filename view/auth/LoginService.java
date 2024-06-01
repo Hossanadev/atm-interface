@@ -38,7 +38,7 @@ public class LoginService {
         UserModel user = userController.authenticateUser(parsedId, parsedPin);
 
         if (user != null) {
-            System.out.println("-- RESPONSE: Login Successful! --");
+            System.out.println("-- Login Successful! --");
             Dashboard.show(user);
         } else {
             ErrorHandler.login(2);

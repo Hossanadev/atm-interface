@@ -1,27 +1,21 @@
 package controller;
 
+import Utils.ErrorHandler;
 import model.UserModel;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 
 public class UserController {
     private final ArrayList<UserModel> users = new ArrayList<>();
 
-    public UserController() {
-        this.users.add(new UserModel("Hossana", 1, 1234));
-        this.users.add(new UserModel("Mirabel", 2,9325));
-        this.users.add(new UserModel("John", 3, 8016));
-    }
-
     public void addUser(UserModel user) {
-        users.add(user);
         persistUser(user);
+        loadUsersFromDatabase();
     }
 
     public ArrayList<UserModel> getUsers() {
+        loadUsersFromDatabase();
         return users;
     }
 
@@ -43,17 +37,48 @@ public class UserController {
             bw.close();
 
         } catch (IOException e) {
-            System.err.println("An error occurred while trying to write to the file: " + e.getMessage());
+            System.err.println("An error occurred while trying to write user to the file: " + e.getMessage());
+        }
+    }
+
+    private void loadUsersFromDatabase() {
+        try (BufferedReader br = new BufferedReader(new FileReader("database/users/users.txt"))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                UserModel user = parseUserFromDatabase(line);
+                if (user != null) {
+                    users.add(user);
+                }
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
     public UserModel authenticateUser(int id, int pin) {
-        UserModel user_ = null;
+        UserModel authenticatedUser = null;
+        loadUsersFromDatabase();
         for (UserModel user : users) {
             if (user.getId() == id && user.getPin() == pin) {
-               user_ = new UserModel(user.getName(), user.getId(), user.getPin());
+                authenticatedUser = new UserModel(user.getName(), user.getId(), user.getPin());
             }
         }
-        return user_;
+        return authenticatedUser;
+    }
+
+    private UserModel parseUserFromDatabase(String line) {
+        try {
+            line = line.replace("UserModel{", "").replace("}", "");
+            String[] parts = line.split(", ");
+
+            String name = parts[0].split("=")[1].replace("'", "");
+            int id = Integer.parseInt(parts[1].split("=")[1]);
+            int pin = Integer.parseInt(parts[2].split("=")[1]);
+
+            return new UserModel(name, id, pin);
+        } catch (Exception e) {
+            ErrorHandler.parseDataFromDatabase(1, e);
+            return null;
+        }
     }
 }
