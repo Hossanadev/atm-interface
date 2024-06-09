@@ -1,0 +1,2 @@
+AccountModel{userId=23, accountNumber=889026, accountBalance=0, transactionHistory=[]}
+AccountModel{userId=89, accountNumber=877344, accountBalance=0, transactionHistory=[]}

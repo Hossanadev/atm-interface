@@ -68,6 +68,10 @@ public class UserController {
 
     private UserModel parseUserFromDatabase(String line) {
         try {
+            if (line == null || line.isEmpty()) {
+                return null;
+            }
+
             line = line.replace("UserModel{", "").replace("}", "");
             String[] parts = line.split(", ");
 

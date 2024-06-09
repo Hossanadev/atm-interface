@@ -30,6 +30,16 @@ public class AccountController {
         return accounts;
     }
 
+    public AccountModel getAccountByAccountNumber(int accountNumber) {
+        AccountModel userAccount = null;
+        for (AccountModel account : accounts) {
+            if (account.getAccountNumber() == accountNumber) {
+                userAccount = account;
+            }
+        }
+        return userAccount;
+    }
+
     public void loadAccountsFromDatabase() {
         try (BufferedReader br = new BufferedReader(new FileReader("database/accounts/accounts.txt"))) {
             String line;

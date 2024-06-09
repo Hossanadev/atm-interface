@@ -1,7 +1,10 @@
 package view.auth;
 
+import Utils.AccountNumberGenerator;
 import Utils.ErrorHandler;
+import controller.AccountController;
 import controller.UserController;
+import model.AccountModel;
 import model.UserModel;
 
 import java.util.ArrayList;
@@ -12,6 +15,8 @@ public class CreateAccount {
 
     public static void newAccount() {
         UserController userController = new UserController();
+        AccountController accountController = new AccountController();
+
         ArrayList<UserModel> users = userController.getUsers();
 
         System.out.println("-- CREATE ACCOUNT --");
@@ -61,9 +66,25 @@ public class CreateAccount {
             }
         }
 
+        int newAccountNumber;
+        int generateAccountNumber = AccountNumberGenerator.generate();
+        AccountModel existingUserAccount = accountController.getAccountByAccountNumber(generateAccountNumber);
+        if (existingUserAccount == null) {
+            newAccountNumber = generateAccountNumber;
+        } else {
+            ErrorHandler.createAccount(7);
+            return;
+        }
+
         UserModel newUser = new UserModel(name, parsedId, parsedPin);
+        AccountModel newAccount = new AccountModel(parsedId, newAccountNumber, 0, new ArrayList<>());
+
         userController.addUser(newUser);
+        accountController.createAccount(newAccount);
+
         System.out.println("-- " + name + ", your account is created successfully... 100% --");
+        System.out.println("-- NEW MESSAGE: your account number is: " + newAccountNumber + " --");
+
         try {
             Thread.sleep(3000);
         } catch (InterruptedException e) {

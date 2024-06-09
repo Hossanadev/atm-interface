@@ -34,11 +34,13 @@ public class ErrorHandler {
                 errorMessage = "Id or Pin must be a numeric value!";
                 break;
             case 5:
-                errorMessage = "User with this name already exist, enter unique name";
+                errorMessage = "User with this name already exist, enter unique name!";
                 break;
             case 6:
-                errorMessage = "User with this id already exist, enter unique id";
+                errorMessage = "User with this id already exist, enter unique id!";
                 break;
+            case 7:
+                errorMessage = "An error occurred while generating a unique account number for you!";
             default:
         }
         System.err.println("-- ERROR: " + errorMessage + " --");

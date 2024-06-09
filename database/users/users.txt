@@ -1,6 +1,3 @@
-UserModel{name='Mary', id=8, pin=1472}
-UserModel{name='Hossana', id=2, pin=1243}
-UserModel{name='Glory', id=3, pin=6244}
-UserModel{name='Castro', id=5, pin=2309}
-UserModel{name='Tunde', id=7, pin=2310}
-UserModel{name='Divne Chuks', id=98, pin=9898}
+UserModel{name='Manado', id=23, pin=9012}
+UserModel{name='Kate', id=89, pin=4319}
+UserModel{name='Gift', id=12, pin=5673}
