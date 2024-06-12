@@ -9,24 +9,25 @@ import java.util.ArrayList;
 public class UserController {
     private final ArrayList<UserModel> users = new ArrayList<>();
 
-    public void addUser(UserModel user) {
-        persistUser(user);
+    public UserController() {
         loadUsersFromDatabase();
     }
 
+    public void addUser(UserModel user) {
+        persistUser(user);
+    }
+
     public ArrayList<UserModel> getUsers() {
-        loadUsersFromDatabase();
         return users;
     }
 
     public UserModel getUserById(int id) {
-        UserModel user_ = null;
         for (UserModel user : users) {
             if (user.getId() == id) {
-                user_ = new UserModel(user.getName(), user.getId(), user.getPin());
+                return new UserModel(user.getName(), user.getId(), user.getPin());
             }
         }
-        return user_;
+        return null;
     }
 
     private void persistUser(UserModel user) {
@@ -56,14 +57,12 @@ public class UserController {
     }
 
     public UserModel authenticateUser(int id, int pin) {
-        UserModel authenticatedUser = null;
-        loadUsersFromDatabase();
         for (UserModel user : users) {
             if (user.getId() == id && user.getPin() == pin) {
-                authenticatedUser = new UserModel(user.getName(), user.getId(), user.getPin());
+                return new UserModel(user.getName(), user.getId(), user.getPin());
             }
         }
-        return authenticatedUser;
+        return null;
     }
 
     private UserModel parseUserFromDatabase(String line) {

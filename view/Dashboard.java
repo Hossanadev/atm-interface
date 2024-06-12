@@ -2,6 +2,7 @@ package view;
 
 import Utils.GreetingHandler;
 import model.UserModel;
+import service.Deposit;
 import view.auth.LandingPage;
 
 import java.util.Scanner;
@@ -22,9 +23,8 @@ public class Dashboard {
         String selectedMenu = sc.nextLine();
 
         switch (selectedMenu) {
-            case "1":
-                System.out.println("-- Transaction History");
-                Dashboard.show(user);
+            case "3":
+                new Deposit().depositMoney(1, 407812, 500);
                 break;
              case "5":
                  LandingPage.show();

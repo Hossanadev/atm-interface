@@ -9,35 +9,35 @@ import java.util.ArrayList;
 public class AccountController {
     ArrayList<AccountModel> accounts = new ArrayList<>();
 
+    public AccountController() {
+        loadAccountsFromDatabase();
+    }
 
     public void createAccount(AccountModel account) {
         persistAccount(account);
     }
 
     public AccountModel getAccountByUserId(int userId) {
-        AccountModel userAccount = null;
         for (AccountModel account : accounts) {
             if (account.getUserId() == userId) {
-                userAccount = new AccountModel(account.getUserId(), account.getAccountNumber(),
+                return new AccountModel(account.getUserId(), account.getAccountNumber(),
                         account.getAccountBalance(), account.getTransactionHistory());
             }
         }
-       return userAccount;
+       return null;
     }
 
     public ArrayList<AccountModel> getAccounts() {
-        loadAccountsFromDatabase();
         return accounts;
     }
 
     public AccountModel getAccountByAccountNumber(int accountNumber) {
-        AccountModel userAccount = null;
         for (AccountModel account : accounts) {
             if (account.getAccountNumber() == accountNumber) {
-                userAccount = account;
+                return account;
             }
         }
-        return userAccount;
+        return null;
     }
 
     public void loadAccountsFromDatabase() {
@@ -54,7 +54,28 @@ public class AccountController {
         }
     }
 
+    public void updateAccount(int accountNumber, int newAccountBalance, ArrayList<String> transactionHistory) {
+        for (AccountModel account : accounts) {
+            if (account.getAccountNumber() == accountNumber) {
+                account.setAccountBalance(newAccountBalance);
+                account.setTransactionHistory(transactionHistory);
+                persistAccount(account);
+            }
+        }
+    }
+
     public void persistAccount(AccountModel account) {
+        try (BufferedReader br = new BufferedReader(new FileReader("database/accounts/accounts.txt"))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                AccountModel retrieved_account = parseAccountFromDatabase(line);
+                if (account == retrieved_account) {
+//                    DELETE ACCOUNT or Replace!!
+                }
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         try {
             BufferedWriter bw = new BufferedWriter(new FileWriter("database/accounts/accounts.txt", true));
             bw.write(account.toString());
