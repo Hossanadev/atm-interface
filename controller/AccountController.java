@@ -59,23 +59,12 @@ public class AccountController {
             if (account.getAccountNumber() == accountNumber) {
                 account.setAccountBalance(newAccountBalance);
                 account.setTransactionHistory(transactionHistory);
-                persistAccount(account);
+                persistAccountUpdate(account);
             }
         }
     }
 
     public void persistAccount(AccountModel account) {
-        try (BufferedReader br = new BufferedReader(new FileReader("database/accounts/accounts.txt"))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                AccountModel retrieved_account = parseAccountFromDatabase(line);
-                if (account == retrieved_account) {
-//                    DELETE ACCOUNT or Replace!!
-                }
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
         try {
             BufferedWriter bw = new BufferedWriter(new FileWriter("database/accounts/accounts.txt", true));
             bw.write(account.toString());
@@ -84,6 +73,41 @@ public class AccountController {
 
         } catch (IOException e) {
             System.err.println("An error occurred while trying to write account to the file: " + e.getMessage());
+        }
+    }
+
+    public void persistAccountUpdate(AccountModel updatedAccount) {
+        try {
+            File inputFile = new File("database/accounts/accounts.txt");
+            File tempFile = new File("database/accounts/accounts_temp.txt");
+
+            BufferedReader reader = new BufferedReader(new FileReader(inputFile));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
+
+            String currentLine;
+
+            while ((currentLine = reader.readLine()) != null) {
+                AccountModel account = parseAccountFromDatabase(currentLine);
+                if (account != null && account.getAccountNumber() == updatedAccount.getAccountNumber()) {
+                    writer.write(updatedAccount.toString());
+                } else {
+                    writer.write(currentLine);
+                }
+                writer.newLine();
+            }
+
+            writer.close();
+            reader.close();
+
+            if (!inputFile.delete()) {
+                System.err.println("Could not delete the original file");
+            }
+            if (!tempFile.renameTo(inputFile)) {
+                System.err.println("Could not rename the temporary file");
+            }
+
+        } catch (IOException e) {
+            System.err.println("An error occurred while trying to update the account in the file: " + e.getMessage());
         }
     }
 

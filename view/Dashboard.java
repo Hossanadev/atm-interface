@@ -4,6 +4,7 @@ import Utils.GreetingHandler;
 import model.UserModel;
 import service.Deposit;
 import view.auth.LandingPage;
+import view.modules.DepositUI;
 
 import java.util.Scanner;
 
@@ -24,7 +25,8 @@ public class Dashboard {
 
         switch (selectedMenu) {
             case "3":
-                new Deposit().depositMoney(1, 407812, 500);
+                DepositUI.user = new UserModel(user.getName(), user.getId(), user.getPin());
+                DepositUI.show();
                 break;
              case "5":
                  LandingPage.show();
