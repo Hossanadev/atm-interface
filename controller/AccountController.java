@@ -2,6 +2,7 @@ package controller;
 
 import Utils.ErrorHandler;
 import model.AccountModel;
+import model.UserModel;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -35,6 +36,17 @@ public class AccountController {
         for (AccountModel account : accounts) {
             if (account.getAccountNumber() == accountNumber) {
                 return account;
+            }
+        }
+        return null;
+    }
+
+    public UserModel getUserByAccountNumber(int accountNumber) {
+        ArrayList<UserModel> users = new UserController().getUsers();
+        AccountModel account = getAccountByAccountNumber(accountNumber);
+        for (UserModel user : users) {
+            if (user.getId() == account.getUserId()) {
+                return user;
             }
         }
         return null;

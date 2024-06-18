@@ -14,5 +14,8 @@ public class Transfer {
 
         int senders_new_accountBalance = user_account_balance - parsedAmount;
         accountController.updateAccount(accountController.getAccountByUserId(user.getId()).getAccountNumber(), senders_new_accountBalance, new ArrayList<>());
+
+        System.out.println("-- Transfer successful! " + user.getName() + ", you transferred " + parsedAmount + " to " + accountController.getUserByAccountNumber(receivers_account.getAccountNumber()).getName() + "! --");
+        System.out.println("-- New account balance: " + accountController.getAccountByUserId(user.getId()).getAccountBalance() + "!");
     }
 }

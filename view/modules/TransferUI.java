@@ -37,7 +37,7 @@ public class TransferUI {
 
         int user_account_balance = accountController.getAccountByUserId(user.getId()).getAccountBalance();
         if (user_account_balance < parsedAmount) {
-            System.err.println("-- Insufficient balance, your current balance is:  " + user_account_balance + "! --");
+            System.err.println("-- Insufficient balance, your current balance is: " + user_account_balance + " --");
             TransferUI.show();
         }
 
