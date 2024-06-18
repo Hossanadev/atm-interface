@@ -2,9 +2,9 @@ package view;
 
 import Utils.GreetingHandler;
 import model.UserModel;
-import service.Deposit;
 import view.auth.LandingPage;
 import view.modules.DepositUI;
+import view.modules.TransferUI;
 
 import java.util.Scanner;
 
@@ -28,9 +28,12 @@ public class Dashboard {
                 DepositUI.user = new UserModel(user.getName(), user.getId(), user.getPin());
                 DepositUI.show();
                 break;
-             case "5":
-                 LandingPage.show();
-                 break;
+            case "4":
+                TransferUI.user = new UserModel(user.getName(), user.getId(), user.getPin());
+                TransferUI.show();
+            case "5":
+                LandingPage.show();
+                break;
             default: {
                 System.out.println("ERROR! -- Invalid option!");
                 Dashboard.show(user);
