@@ -1,4 +1,4 @@
-AccountModel{userId=1, accountNumber=407812, accountBalance=12002, transactionHistory=[]}
+AccountModel{userId=1, accountNumber=407812, accountBalance=12001, transactionHistory=[]}
 AccountModel{userId=34, accountNumber=566830, accountBalance=2090, transactionHistory=[]}
 AccountModel{userId=12, accountNumber=806268, accountBalance=1300, transactionHistory=[]}
-AccountModel{userId=13, accountNumber=474099, accountBalance=1298, transactionHistory=[]}
+AccountModel{userId=13, accountNumber=474099, accountBalance=1299, transactionHistory=[]}

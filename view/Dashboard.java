@@ -5,6 +5,7 @@ import model.UserModel;
 import view.auth.LandingPage;
 import view.modules.DepositUI;
 import view.modules.TransferUI;
+import view.modules.WithdrawUI;
 
 import java.util.Scanner;
 
@@ -24,6 +25,10 @@ public class Dashboard {
         String selectedMenu = sc.nextLine();
 
         switch (selectedMenu) {
+            case "2":
+                WithdrawUI.user = new UserModel(user.getName(), user.getId(), user.getPin());
+                WithdrawUI.show();
+                break;
             case "3":
                 DepositUI.user = new UserModel(user.getName(), user.getId(), user.getPin());
                 DepositUI.show();
