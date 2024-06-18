@@ -31,6 +31,7 @@ public class Dashboard {
             case "4":
                 TransferUI.user = new UserModel(user.getName(), user.getId(), user.getPin());
                 TransferUI.show();
+                break;
             case "5":
                 LandingPage.show();
                 break;
