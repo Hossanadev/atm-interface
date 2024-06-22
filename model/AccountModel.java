@@ -1,12 +1,10 @@
 package model;
 
-import java.util.ArrayList;
-
 public class AccountModel {
     private int userId, accountNumber, accountBalance;
-    ArrayList<String> transactionHistory;
+    String transactionHistory = "";
 
-    public AccountModel(int userId, int accountNumber, int accountBalance, ArrayList<String> transactionHistory) {
+    public AccountModel(int userId, int accountNumber, int accountBalance, String transactionHistory) {
         this.userId = userId;
         this.accountNumber = accountNumber;
         this.accountBalance = accountBalance;
@@ -37,11 +35,11 @@ public class AccountModel {
         this.accountBalance = accountBalance;
     }
 
-    public ArrayList<String> getTransactionHistory() {
+    public String getTransactionHistory() {
         return transactionHistory;
     }
 
-    public void setTransactionHistory(ArrayList<String> transactionHistory) {
+    public void setTransactionHistory(String transactionHistory) {
         this.transactionHistory = transactionHistory;
     }
 

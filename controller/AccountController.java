@@ -52,6 +52,15 @@ public class AccountController {
         return null;
     }
 
+    public String getTransactionHistory(int userId) {
+        for (AccountModel account : accounts) {
+            if (account.getUserId() == userId) {
+                return account.getTransactionHistory();
+            }
+        }
+        return "";
+    }
+
     public void loadAccountsFromDatabase() {
         try (BufferedReader br = new BufferedReader(new FileReader("database/accounts/accounts.txt"))) {
             String line;
@@ -66,7 +75,7 @@ public class AccountController {
         }
     }
 
-    public void updateAccount(int accountNumber, int newAccountBalance, ArrayList<String> transactionHistory) {
+    public void updateAccount(int accountNumber, int newAccountBalance, String transactionHistory) {
         for (AccountModel account : accounts) {
             if (account.getAccountNumber() == accountNumber) {
                 account.setAccountBalance(newAccountBalance);
@@ -131,10 +140,8 @@ public class AccountController {
             int user_id = Integer.parseInt(parts[0].split("=")[1].replace("'", ""));
             int account_number = Integer.parseInt(parts[1].split("=")[1]);
             int account_balance = Integer.parseInt(parts[2].split("=")[1]);
-            ArrayList<String> transaction_history = new ArrayList<>();
-            for (int i = 0; i < parts.length - 3; i++) {
-                transaction_history.add(parts[i + 3].split("=")[1]);
-            }
+            String transaction_history = parts[3].split("=")[1];
+
             return new AccountModel(user_id, account_number, account_balance, transaction_history);
         } catch (Exception e) {
             ErrorHandler.parseDataFromDatabase(1, e);

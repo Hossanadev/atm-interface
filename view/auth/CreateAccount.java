@@ -77,7 +77,7 @@ public class CreateAccount {
         }
 
         UserModel newUser = new UserModel(name, parsedId, parsedPin);
-        AccountModel newAccount = new AccountModel(parsedId, newAccountNumber, 0, new ArrayList<>());
+        AccountModel newAccount = new AccountModel(parsedId, newAccountNumber, 0, "");
 
         userController.addUser(newUser);
         accountController.createAccount(newAccount);

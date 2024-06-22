@@ -1,12 +1,12 @@
 package service;
 
+import Utils.GetCurrentDateTime;
 import controller.AccountController;
 import controller.UserController;
 import model.AccountModel;
+import model.UserModel;
 import view.Dashboard;
 import view.modules.DepositUI;
-
-import java.util.ArrayList;
 
 public class Deposit {
     UserController userController = new UserController();
@@ -14,13 +14,18 @@ public class Deposit {
 
     public void depositMoney(int depositorId, int accountNumber, int amount) {
         String depositorName = userController.getUserById(depositorId).getName();
-        AccountModel account = accountController.getAccountByAccountNumber(accountNumber);
+        AccountModel receiver_account = accountController.getAccountByAccountNumber(accountNumber);
 
-        int newAccountBalance = account.getAccountBalance() + amount;
-        accountController.updateAccount(accountNumber, newAccountBalance, new ArrayList<>());
+        UserModel receiver_user = userController.getUserById(receiver_account.getUserId());
 
-        String recipientName = userController.getUserById(account.getUserId()).getName();
-        System.out.println(depositorName + ", you have successfully deposited N" + amount + " to " + recipientName + "-(" + (accountNumber) +")");
+        boolean isNotificationHistoryEmpty = (accountController.getTransactionHistory(receiver_user.getId()).equalsIgnoreCase("") || !(accountController.getTransactionHistory(receiver_user.getId()).length() > 2));
+        String notification = isNotificationHistoryEmpty ? GetCurrentDateTime.get() + " ~ " + depositorName + " deposited N" + amount + " into your account" :
+                accountController.getTransactionHistory(receiver_user.getId()).concat("," + GetCurrentDateTime.get() + " ~ " + depositorName + " deposited N" + amount + " into your account");
+
+        int newAccountBalance = receiver_account.getAccountBalance() + amount;
+        accountController.updateAccount(accountNumber, newAccountBalance, notification);
+
+        System.out.println(depositorName + ", you have successfully deposited N" + amount + " to " + receiver_user.getName() + "-(" + (accountNumber) +")");
 
         Dashboard.show(DepositUI.user);
     }

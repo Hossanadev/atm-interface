@@ -4,6 +4,7 @@ import Utils.GreetingHandler;
 import model.UserModel;
 import view.auth.LandingPage;
 import view.modules.DepositUI;
+import view.modules.TransactionHistoryUI;
 import view.modules.TransferUI;
 import view.modules.WithdrawUI;
 
@@ -25,6 +26,9 @@ public class Dashboard {
         String selectedMenu = sc.nextLine();
 
         switch (selectedMenu) {
+            case "1":
+                TransactionHistoryUI.user = new UserModel(user.getName(), user.getId(), user.getPin());
+                TransactionHistoryUI.show();
             case "2":
                 WithdrawUI.user = new UserModel(user.getName(), user.getId(), user.getPin());
                 WithdrawUI.show();
