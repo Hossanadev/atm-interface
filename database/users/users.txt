@@ -1,6 +1,1 @@
-UserModel{name='Hossana', id=1, pin=4321}
-UserModel{name='CHIDI', id=34, pin=3434}
-UserModel{name='Mosco', id=12, pin=1212}
-UserModel{name='Kelvin', id=13, pin=1313}
-UserModel{name='Jotter', id=55, pin=5555}
-UserModel{name='OasisInfobyte', id=78, pin=1728}
+
