@@ -1,6 +1,0 @@
-AccountModel{userId=1, accountNumber=407812, accountBalance=278896, transactionHistory=22/06/2024 16:58:37 ~ Hossana deposited N237894 into your account,22/06/2024 16:59:36 ~ You transferred N3456 to Mosco,22/06/2024 17:00:56 ~ You withdrew N123,22/06/2024 17:08:08 ~ You withdrew N12}
-AccountModel{userId=34, accountNumber=566830, accountBalance=2090, transactionHistory=""}
-AccountModel{userId=12, accountNumber=806268, accountBalance=4786, transactionHistory=22/06/2024 16:59:36 ~ Hossana transferred N3456 to you}
-AccountModel{userId=13, accountNumber=474099, accountBalance=1366, transactionHistory=""}
-AccountModel{userId=55, accountNumber=380617, accountBalance=6545, transactionHistory=""}
-AccountModel{userId=78, accountNumber=260552, accountBalance=0, transactionHistory=}
